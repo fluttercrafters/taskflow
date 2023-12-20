@@ -35,7 +35,7 @@ class _TaskFormState extends State<TaskForm> {
         const Gap(16),
         ElevatedButton(
           onPressed: () {
-            widget.onTaskSubmitted(Task.empty(description: _controller.text));
+            widget.onTaskSubmitted(Task.description(description: _controller.text));
             _controller.clear();
           }
               ,

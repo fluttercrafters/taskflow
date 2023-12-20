@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:taskflow/domain/models/task.dart';
 
 final _cardColors = [
@@ -12,7 +13,12 @@ final _cardColors = [
   Colors.purple[50],
 ];
 
-class TaskItem extends StatelessWidget {
+enum TaskAction {
+  edit,
+  delete,
+}
+
+class TaskItem extends StatefulWidget {
   const TaskItem({
     super.key,
     required this.task,
@@ -21,33 +27,67 @@ class TaskItem extends StatelessWidget {
   final Task task;
 
   @override
+  State<TaskItem> createState() => _TaskItemState();
+}
+
+class _TaskItemState extends State<TaskItem> {
+  final randomColor = _cardColors[Random().nextInt(_cardColors.length)];
+
+  @override
   Widget build(BuildContext context) {
     return Card(
-      color: _cardColors[Random().nextInt(_cardColors.length)],
+      color: randomColor,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: Text(
-                    task.category.toUpperCase(),
+                    widget.task.category.toUpperCase(),
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.w900,
                         ),
                   ),
                 ),
-                IconButton(
-                  visualDensity: VisualDensity.compact,
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_horiz),
+                PopupMenuButton<TaskAction>(
+                  initialValue: null,
+                  onSelected: (TaskAction item) {
+                    setState(() {
+                      // selectedMenu = item;
+                    });
+                  },
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<TaskAction>>[
+                    const PopupMenuItem<TaskAction>(
+                      value: TaskAction.edit,
+                      child: Row(
+                        children: [
+                          Icon(Icons.edit_outlined),
+                          Gap(4),
+                          Expanded(child: Text('Edit')),
+                        ],
+                      ),
+                    ),
+                    const PopupMenuItem<TaskAction>(
+                      value: TaskAction.delete,
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete_outlined),
+                          Gap(4),
+                          Expanded(child: Text('Delete')),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
             Text(
-              task.description,
+              widget.task.description,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
