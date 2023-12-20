@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskflow/core/app/taskflow.dart';
 import 'package:taskflow/core/app/taskflow_data.dart';
-import 'package:taskflow/features/home/home.dart';
+import 'package:taskflow/features/tasks/pages/tasks_page.dart';
 
 class TaskFlowApp extends StatelessWidget {
   const TaskFlowApp({super.key});
@@ -27,7 +27,7 @@ class TaskFlowApp extends StatelessWidget {
           ),
           scaffoldBackgroundColor: Colors.grey[100],
         ),
-        home: const HomePage(),
+        home: const TasksPage(),
       ),
     );
   }
