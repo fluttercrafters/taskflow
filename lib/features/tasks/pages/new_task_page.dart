@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taskflow/core/app/taskflow.dart';
+import 'package:provider/provider.dart';
+import 'package:taskflow/core/app/taskflow_data.dart';
 import 'package:taskflow/features/tasks/widgets/task_form.dart';
 
 class NewTaskPage extends StatelessWidget {
@@ -21,7 +22,7 @@ class NewTaskPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: TaskForm(
           onTaskSubmitted: (newTask) {
-            TaskFlowBinding.of(context).addTask(newTask);
+           context.read<TaskFlowData>().addTask(newTask);
             Navigator.pop(context);
           },
         ),

@@ -1,10 +1,10 @@
-import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:taskflow/domain/models/task.dart';
 
-class TaskFlowData extends Equatable {
-  final List<Task> tasks;
+class TaskFlowData extends ChangeNotifier {
+  List<Task> tasks;
 
-  const TaskFlowData({
+  TaskFlowData({
     this.tasks = const [
       Task.empty(
         description: 'Lavar ropa',
@@ -31,19 +31,19 @@ class TaskFlowData extends Equatable {
           'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
         ],
@@ -51,6 +51,8 @@ class TaskFlowData extends Equatable {
     ],
   });
 
-  @override
-  List<Object?> get props => [tasks];
+  void addTask(Task newTask) {
+    tasks = [...tasks, newTask];
+    notifyListeners();
+  }
 }

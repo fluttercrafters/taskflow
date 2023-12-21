@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskflow/core/app/taskflow.dart';
+import 'package:provider/provider.dart';
 import 'package:taskflow/core/app/taskflow_data.dart';
 import 'package:taskflow/features/tasks/tasks.dart';
 
@@ -8,8 +8,8 @@ class TaskFlowApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TaskFlowBinding(
-      initialData: const TaskFlowData(),
+    return ChangeNotifierProvider(
+      create: (_) => TaskFlowData(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'TaskFlow',

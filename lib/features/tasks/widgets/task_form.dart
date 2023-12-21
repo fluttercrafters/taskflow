@@ -22,8 +22,6 @@ class _TaskFormState extends State<TaskForm> {
   final _categoryController = TextEditingController(text: null);
   final _tagsController = TextEditingController(text: null);
 
-  bool isChecked = false;
-
   @override
   void dispose() {
     _controller.dispose();
@@ -79,25 +77,6 @@ class _TaskFormState extends State<TaskForm> {
                   return null;
                 },
                 controller: _tagsController,
-              ),
-              const Gap(16),
-              Row(
-                children: [
-                  Checkbox.adaptive(
-                    value: isChecked,
-                    onChanged: (value) => setState(() {
-                      isChecked = value ?? false;
-                    }),
-                  ),
-                  const Text('Checkbox')
-                ],
-              ),
-              CheckboxListTile.adaptive(
-                value: isChecked,
-                onChanged: (value) => setState(() {
-                  isChecked = value ?? false;
-                }),
-                title: const Text('Algun checkbox'),
               ),
             ],
           ),
