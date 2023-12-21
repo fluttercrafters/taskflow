@@ -80,25 +80,6 @@ class _TaskFormState extends State<TaskForm> {
                 },
                 controller: _tagsController,
               ),
-              const Gap(16),
-              Row(
-                children: [
-                  Checkbox.adaptive(
-                    value: isChecked,
-                    onChanged: (value) => setState(() {
-                      isChecked = value ?? false;
-                    }),
-                  ),
-                  const Text('Checkbox')
-                ],
-              ),
-              CheckboxListTile.adaptive(
-                value: isChecked,
-                onChanged: (value) => setState(() {
-                  isChecked = value ?? false;
-                }),
-                title: const Text('Algun checkbox'),
-              ),
             ],
           ),
         ),
@@ -113,6 +94,8 @@ class _TaskFormState extends State<TaskForm> {
                   category: _categoryController.text,
                   tags: _tagsController.text.split(',')));
               _controller.clear();
+              _categoryController.clear();
+              _tagsController.clear();
             }
           },
           child: const Text('Add'),

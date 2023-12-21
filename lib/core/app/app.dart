@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taskflow/core/app/taskflow.dart';
-import 'package:taskflow/core/app/taskflow_data.dart';
+import 'package:provider/provider.dart';
+import 'package:taskflow/data/tasks_model.dart';
 import 'package:taskflow/features/tasks/tasks.dart';
 
 class TaskFlowApp extends StatelessWidget {
@@ -8,8 +8,8 @@ class TaskFlowApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TaskFlowBinding(
-      initialData: const TaskFlowData(),
+    return Provider(
+      create: (_) => TasksModel(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'TaskFlow',

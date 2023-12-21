@@ -1,11 +1,10 @@
-import 'package:equatable/equatable.dart';
+import 'dart:async';
+
 import 'package:taskflow/domain/models/task.dart';
 
-class TaskFlowData extends Equatable {
-  final List<Task> tasks;
+// MVVM -> Model, View, ViewModel
 
-  const TaskFlowData({
-    this.tasks = const [
+const dummy = [
       Task.empty(
         description: 'Lavar ropa',
         category: 'Hogar',
@@ -31,26 +30,45 @@ class TaskFlowData extends Equatable {
           'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
-           'home',
+          'home',
           'living',
           'health',
         ],
       ),
-    ],
-  });
+    ];
 
-  @override
-  List<Object?> get props => [tasks];
+class TasksModel {
+  List<Task> _tasks = dummy;
+
+  Stream<List<Task>> get tasksStream => _controller.stream;
+  final StreamController<List<Task>> _controller = StreamController.broadcast();
+
+  TasksModel() {
+    _controller.add(_tasks);
+  }
+
+  void loadTasks() {
+    _controller.add(_tasks);
+  }
+
+  void addTask(Task newTask) {
+    _tasks = [
+      ..._tasks,
+      newTask,
+    ];
+
+    _controller.add(_tasks);
+  }
 }

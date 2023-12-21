@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taskflow/core/app/taskflow.dart';
+import 'package:provider/provider.dart';
+import 'package:taskflow/features/tasks/viewmodels/new_task_vm.dart';
 import 'package:taskflow/features/tasks/widgets/task_form.dart';
 
 class NewTaskPage extends StatelessWidget {
@@ -7,7 +8,12 @@ class NewTaskPage extends StatelessWidget {
 
   static PageRoute route() {
     return MaterialPageRoute(
-      builder: (context) => const NewTaskPage(),
+      builder: (context) => ChangeNotifierProvider(
+        create: (providerContext) => NewTaskViewModel(
+          model: providerContext.read(),
+        ),
+        child: const NewTaskPage(),
+      ),
     );
   }
 
@@ -21,7 +27,7 @@ class NewTaskPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: TaskForm(
           onTaskSubmitted: (newTask) {
-            TaskFlowBinding.of(context).addTask(newTask);
+            context.read<NewTaskViewModel>().addNewTask(newTask);
             Navigator.pop(context);
           },
         ),
