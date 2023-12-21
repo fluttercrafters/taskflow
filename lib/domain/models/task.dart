@@ -1,11 +1,13 @@
-class Task {
+import 'package:equatable/equatable.dart';
+
+class Task extends Equatable {
   final int priority;
   final bool isDone;
   final String description;
   final String category;
   final List<String> tags;
 
-  Task({
+  const Task({
     required this.priority,
     required this.isDone,
     required this.description,
@@ -13,11 +15,20 @@ class Task {
     required this.tags,
   });
 
-  Task.empty({
+  const Task.empty({
     required this.description,
     this.priority = -1,
     this.isDone = false,
-    this.category = 'Quehaceres',
+    this.category = 'Sin Categoría',
     this.tags = const [],
   });
+
+  @override
+  List<Object?> get props => [
+        priority,
+        isDone,
+        description,
+        category,
+        tags,
+      ];
 }

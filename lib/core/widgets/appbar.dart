@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:taskflow/features/tasks/pages/new_task_page.dart';
 
 final _formatter = DateFormat.MMMMd();
 
@@ -23,7 +24,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
           child: IconButton.filled(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(NewTaskPage.route());
+            },
             icon: const Icon(
               Icons.add,
             ),
