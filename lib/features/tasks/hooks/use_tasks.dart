@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taskflow/domain/models/task.dart';
+
+final tasksProvider = AsyncNotifierProvider.autoDispose<TaskListNotifier, List<Task>>(
+  TaskListNotifier.new,
+);
 
 const _defaultTasks = [
   Task.empty(
@@ -47,10 +50,14 @@ const _defaultTasks = [
   ),
 ];
 
-ValueNotifier<List<Task>> useTasks({List<Task> initialData = _defaultTasks}) {
-  final result = useState<List<Task>>(initialData);
-  useValueChanged<List<Task>, void>(result.value, (_, __) {
-    debugPrint('Tasks count: ${result.value.length}');
-  });
-  return result;
+class TaskListNotifier extends AutoDisposeAsyncNotifier<List<Task>> {
+  @override
+  Future<List<Task>> build() async {
+    return [..._defaultTasks];
+  }
+
+  Future<void> addTask(Task newTask) async {
+    final previousState = await future;
+    state = AsyncData([...previousState, newTask]);
+  }
 }
