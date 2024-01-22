@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:taskflow/core/app/taskflow_data.dart';
+import 'package:taskflow/domain/models/task.dart';
 import 'package:taskflow/features/tasks/widgets/task_form.dart';
 
 class NewTaskPage extends StatelessWidget {
-  const NewTaskPage({super.key});
+  const NewTaskPage({
+    super.key,
+    required this.onTaskSubmitted,
+  });
 
-  static PageRoute route() {
-    return MaterialPageRoute(
-      builder: (context) => const NewTaskPage(),
-    );
-  }
+  final void Function(Task) onTaskSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +19,7 @@ class NewTaskPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: TaskForm(
-          onTaskSubmitted: (newTask) {
-           context.read<TaskFlowData>().addTask(newTask);
-            Navigator.pop(context);
-          },
+          onTaskSubmitted: onTaskSubmitted,
         ),
       ),
     );
